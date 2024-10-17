@@ -36,6 +36,7 @@ The Linear Regression model is a fundamental approach to predictive modeling. It
 
 y=β0+β1x1​+β2x2​+…+βn​xn
 ​
+
 Key Concept: Linear regression finds the coefficients 𝛽 that minimize the sum of the squared differences between the observed values and the predicted values (minimizing the mean squared error). This model assumes that the relationship between inputs and outputs is linear, which is its main limitation when dealing with more complex or non-linear relationships.
 
 Although Naive Bayes is typically used for classification tasks, it can be adapted for regression in some cases (such as Gaussian Naive Bayes). The model assumes that the input features are independent of each other (hence "naive") and follows a specific probability distribution, often Gaussian in regression.
