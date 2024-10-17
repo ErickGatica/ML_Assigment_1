@@ -1,5 +1,7 @@
 # Report 
 
+Erick Gatica Candia, Ph.D. Student in Mechanical Engineering, University of Colorado Boulder
+
 ## Abstract
 
 Over the past seven decades, various methods have been developed for predicting Critical Heat Flux (CHF), with early approaches relying heavily on empirical correlations lacking a strong physical basis. These methods have since evolved into more complex physical models and phenomenological equations, which are commonly used in reactor safety analysis. However, these models are highly dependent on the flow regime and controlling mechanisms of CHF, necessitating a combination of approaches to provide accurate predictions. In this project, data from the 2006 Groeneveld CHF Lookup Table, comprising over 25,000 experimental data points, was utilized to develop machine learning models capable of predicting CHF under different conditions. The dataset included parameters such as tube diameter, pressure, mass flux, and inlet temperature. Using the Scikit-learn library, four models were tested: Linear Regression, Naive Bayes, Ridge Regression with alpha 0.1, and Ridge Regression with alpha 0.8. Each model was evaluated based on mean squared error (MSE), execution time, and memory usage. The results showed that Naive Bayes outperformed other models in terms of MSE, but incurred significantly higher processing time. Ridge regression models demonstrated improved generalization through regularization, highlighting the trade-off between accuracy and computational efficiency for CHF prediction.
