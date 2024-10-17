@@ -2,7 +2,7 @@
 
 ## Abstract
 
-
+Over the past seven decades, various methods have been developed for predicting Critical Heat Flux (CHF), with early approaches relying heavily on empirical correlations lacking a strong physical basis. These methods have since evolved into more complex physical models and phenomenological equations, which are commonly used in reactor safety analysis. However, these models are highly dependent on the flow regime and controlling mechanisms of CHF, necessitating a combination of approaches to provide accurate predictions. In this project, data from the 2006 Groeneveld CHF Lookup Table, comprising over 25,000 experimental data points, was utilized to develop machine learning models capable of predicting CHF under different conditions. The dataset included parameters such as tube diameter, pressure, mass flux, and inlet temperature. Using the Scikit-learn library, four models were tested: Linear Regression, Naive Bayes, Ridge Regression with alpha 0.1, and Ridge Regression with alpha 0.8. Each model was evaluated based on mean squared error (MSE), execution time, and memory usage. The results showed that Naive Bayes outperformed other models in terms of MSE, but incurred significantly higher processing time. Ridge regression models demonstrated improved generalization through regularization, highlighting the trade-off between accuracy and computational efficiency for CHF prediction.
 
 ## Introduction
 
@@ -32,7 +32,7 @@ The selected model to try were:
 - Ridge Linear Regression model with alpha 0.8
 
 
-The Linear Regression model is a fundamental approach to predictive modeling. It attempts to model the relationship between a dependent variable (in this case, CHF) and one or more independent variables (the input features like D, L, P, G, etc.) by fitting a straight line to the data. The general form of the equation is:
+The Linear Regression model is a fundamental approach to predictive modeling [2]. It attempts to model the relationship between a dependent variable (in this case, CHF) and one or more independent variables (the input features like D, L, P, G, etc.) by fitting a straight line to the data. The general form of the equation is:
 
 y=β0+β1x1​+β2x2​+…+βn​xn
 ​
@@ -41,11 +41,11 @@ Key Concept: Linear regression finds the coefficients 𝛽 that minimize the sum
 
 Although Naive Bayes is typically used for classification tasks, it can be adapted for regression in some cases (such as Gaussian Naive Bayes). The model assumes that the input features are independent of each other (hence "naive") and follows a specific probability distribution, often Gaussian in regression.
 
-The Gaussian Naive Bayes model calculates the likelihood of each feature given a certain output, using probability distributions to estimate the target variable (CHF) based on these likelihoods.
+The Gaussian Naive Bayes model calculates the likelihood of each feature given a certain output, using probability distributions to estimate the target variable (CHF) based on these likelihoods [2].
 
 Key Concept: Naive Bayes is powerful when the independence assumption holds true but can be less accurate when the input features are strongly correlated. Unlike linear regression, which is purely deterministic, Naive Bayes incorporates probabilistic reasoning
 
-Ridge Regression is a variant of linear regression that includes a regularization term to address overfitting, especially when there is multicollinearity (i.e., highly correlated features) in the dataset. The Ridge Regression model adds a penalty to the size of the coefficients, which is controlled by the regularization parameter 𝛼.
+Ridge Regression [3] is a variant of linear regression that includes a regularization term to address overfitting, especially when there is multicollinearity (i.e., highly correlated features) in the dataset. The Ridge Regression model adds a penalty to the size of the coefficients, which is controlled by the regularization parameter 𝛼.
 
 For Ridge Regression with α = 0.1, the regularization is relatively small, which means the model is closer to standard linear regression. It tries to strike a balance between fitting the data and limiting overfitting by penalizing large coefficient values.
 
@@ -54,7 +54,6 @@ Key Concept: This model is well-suited for situations where the input features a
 In Ridge Regression with α = 0.8, the regularization is stronger compared to α = 0.1. This means that the model places more emphasis on minimizing the size of the coefficients (shrinkage), which helps in preventing overfitting even more than with α = 0.1.
 
 Key Concept: A larger α results in greater bias but lower variance, making the model more robust to overfitting at the cost of potentially underfitting the data. It is most useful when the data exhibits a high level of noise or when certain features may not be particularly important for prediction.
-
 
 Each of these models were evaluated on the dataset, and their performance compared in terms of accuracy (mean square error), processing time, and memory usage, giving insights into which approach best balances complexity and predictive power for this particular task.
 
@@ -122,9 +121,67 @@ In addition to the comparison of the models, the next Figures show the results o
     <strong>Figure 7:</strong> Ridge regression model alpha = 0.8.
 </p>
 
+In [Figure 4](fig#4), [Figure 5](fig#5), [Figure 6](fig#6), and [Figure 7](fig#7) the actual value for CHF and the predicted value are shown. From the plots it is possible to identify that the best behavior from the ideal prediction is obtained using the Naive Bayes model. However, the linear regression models seem able to predict the data with a decent accuracy until the CHF reach out values over 4000. This is to overfitting of the data and to non-linear behavior of the CHF with the features. To explore the non-linearity of CHF due to the features the plots for this variables were obtained using the model with no regularization.
+
+The next Figures show the behavior of actual and predicted CHF value due to the features that were used to train the model
+
+<!-- Figure 8: CHF vs Diameter (m) -->
+<p id="fig8">
+    <img src="figures/LinearRegression()_D_results.png" alt=" CHF vs Diameter (m) " width="600">
+    <br>
+    <strong>Figure 8:</strong> CHF vs Diameter (m).
+</p>
+
+<!-- Figure 9: CHF vs Hydraulic diameter (m) -->
+<p id="fig9">
+    <img src="figures/LinearRegression()_Dh_in_results.png" alt=" CHF vs Hydraulic diameter (m) " width="600">
+    <br>
+    <strong>Figure 9:</strong> CHF vs Hydraulic diameter (m).
+</p>
+
+<!-- Figure 10: CHF vs Mass flow (kg/ms) -->
+<p id="fig10">
+    <img src="figures/LinearRegression()_G_results.png" alt=" CHF vs Mass flow (kg/ms) " width="600">
+    <br>
+    <strong>Figure 10:</strong> CHF vs Mass flow (kg/ms).
+</p>
+
+<!-- Figure 11: CHF vs Pipe length (kg/ms) -->
+<p id="fig11">
+    <img src="figures/LinearRegression()_L_results.png" alt=" CHF vs Tube length " width="600">
+    <br>
+    <strong>Figure 11:</strong> CHF vs Tube length.
+</p>
+
+<!-- Figure 12: CHF vs Pressure (kPa) -->
+<p id="fig12">
+    <img src="figures/LinearRegression()_P_results.png" alt=" CHF vs Pressure (kPa) " width="600">
+    <br>
+    <strong>Figure 12:</strong> CHF vs Pressure (kPa).
+</p>
+
+<!-- Figure 13: CHF vs Input temperature (C) -->
+<p id="fig13">
+    <img src="figures/LinearRegression()_T_in_results.png" alt=" CHF vs Input temperature (C) " width="600">
+    <br>
+    <strong>Figure 13:</strong> CHF vs Input Temperature (C).
+</p>
+
+
+<!-- Figure 14: CHF vs Quality -->
+<p id="fig14">
+    <img src="figures/LinearRegression()_X_chf_results.png" alt=" CHF vs Quality " width="600">
+    <br>
+    <strong>Figure 14:</strong> CHF vs Quality.
+</p>
+
+From the last plots it was possible to identify that the non-linear behavior of CHF due to the tube length and the input temperature of the fluid probably lead to the miss fitting of the model for high values of CHF. However, for some ranges the estimations seem to be good to predict the target parameter.
 
 
 ## Bibliography 
 [1] D.C. Groeneveld, Critical Heat Flux Data Used to Generate the 2006 Groeneveld Lookup Tables (NUREG/KM-0011), (2019). 
 https://www.nrc.gov/reading-rm/doc-collections/nuregs/knowledge/km0011/index.html#pub-info
 
+[2] Ng, A. (n.d.). Machine Learning Notes.
+
+[3] Geron, A. (n.d.). Hands-on ML with Scikit-Learn, Keras & TensorFlow: Part 1. GitHub. Retrieved October 17, 2024, from [\[GitHub repository URL\]](https://github.com/Akramz/Hands-on-Machine-Learning-with-Scikit-Learn-Keras-and-TensorFlow?tab=readme-ov-file)
