@@ -49,6 +49,7 @@ def evaluate_model(model, X_train, X_test, y_train, y_test):
     mse = mean_squared_error(y_test, y_pred)
 
     end_time = time.time()
+    # Calculating the execution time in seconds
     execution_time = end_time - start_time
 
     #Get the current memory usage
@@ -82,11 +83,11 @@ def linear_regression_model(X_train, X_test, y_train, y_test):
     print('Execution Time:', execution_time_lin)
     print('Memory Usage:', memory_lin)
     print('-----------------------------------')
-    return lin_reg
+    return lin_reg, results['Linear Regression']
 
 # Linear Regression Model (Regularized Linear Regression)
 
-def ridge_regression_model(X_train, X_test, y_train, y_test, alpha = 0.5):
+def ridge_regression_model(X_train, X_test, y_train, y_test, alpha):
     """
     This function creates a regularized linear regression model and evaluates the model performance.
 
@@ -105,13 +106,13 @@ def ridge_regression_model(X_train, X_test, y_train, y_test, alpha = 0.5):
     # Evaluating the model
     y_pred_ridge, mse_ridge, execution_time_ridge, memory_ridge = evaluate_model(ridge_reg, X_train, X_test, y_train, y_test)
     # Saving the results
-    results['Ridge Regression',alpha*10] = {'y_pred': y_pred_ridge , 'MSE': mse_ridge, 'Execution Time': execution_time_ridge, 'Memory Usage': memory_ridge}
+    results['Ridge Regression '+str(alpha)] = {'y_pred': y_pred_ridge , 'MSE': mse_ridge, 'Execution Time': execution_time_ridge, 'Memory Usage': memory_ridge}
     print('Ridge Regression Model with alpha = ', alpha)
     print('Mean Squared Error:', mse_ridge)
     print('Execution Time:', execution_time_ridge)
     print('Memory Usage:', memory_ridge)
     print('-----------------------------------')
-    return ridge_reg
+    return ridge_reg, results['Ridge Regression '+str(alpha)]
 
 # Logistic Regression Model
 
@@ -140,7 +141,7 @@ def logistic_regression_model(X_train, X_test, y_train, y_test):
     print('Execution Time:', execution_time_log)
     print('Memory Usage:', memory_log)
     print('-----------------------------------')
-    return log_reg
+    return log_reg, results['Logistic Regression']
 
 # GDA Model
 
@@ -168,7 +169,7 @@ def gda_model(X_train, X_test, y_train, y_test):
     print('Execution Time:', execution_time_gda)
     print('Memory Usage:', memory_gda)
     print('-----------------------------------')
-    return gda
+    return gda, results['Gaussian Discriminant Analysis']
 
 # Naive Bayes Model
 
@@ -196,7 +197,7 @@ def naive_bayes_model(X_train, X_test, y_train, y_test):
     print('Execution Time:', execution_time_nb)
     print('Memory Usage:', memory_nb)
     print('-----------------------------------')
-    return nb
+    return nb, results['Naive Bayes']
 
 # Function to plot the results from the models and the actual values
 
@@ -253,11 +254,101 @@ def plot_results_features(lin_model, X_test, y_test, feature):
     plt.tight_layout()
     plt.savefig(f'figures/{lin_model}_{feature}_results.png')
     # Show the plot
-    plt.show
+    plt.show()
     return plt
 
 
+# Function to plot the mean squared error for each model
+def plot_mse(results):
+    """
+    This function plots the mean squared error for each model.
 
+    Input:
+    results: Dictionary with the results of the models
+
+    Output:
+    None
+    """
+    # Checking the models and creating a list with the names as strings
+    models = list(results.keys())
+    print(models)
+    mse = [results[model]['MSE'] for model in models]
+    plt.figure(figsize=(10, 6))
+    bars = plt.bar(models, mse)
+    # Adding labels on top of each bar
+    for bar in bars:
+        yval = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width()/2, yval, round(yval, 2), ha='center', va='bottom')
+    plt.title('Mean Squared Error for each model')
+    plt.xlabel('Models')
+    plt.ylabel('Mean Squared Error')
+    # Saving figure in the folder figures as png file 
+    plt.tight_layout()
+    plt.savefig(f'figures/MSE_results.png')
+    # Show the plot
+    plt.show()
+    return plt
+
+# Function to plot the execution time for each model
+def plot_execution_time(results):
+    """
+    This function plots the execution time for each model.
+
+    Input:
+    results: Dictionary with the results of the models
+
+    Output:
+    None
+    """
+    models = list(results.keys())
+    execution_time = [results[model]['Execution Time'] for model in models]
+    plt.figure(figsize=(10, 6))
+    bars = plt.bar(models, execution_time)
+    # Adding labels on top of each bar
+    for bar in bars:
+        yval = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width()/2, yval, round(yval, 2), ha='center', va='bottom')
+    plt.title('Execution Time for each model')
+    plt.xlabel('Models')
+    plt.ylabel('Execution Time (s)')
+    # Saving figure in the folder figures as png file 
+    plt.tight_layout()
+    plt.savefig(f'figures/Execution_time_results.png')
+    # Show the plot
+    plt.show()
+    return plt
+
+# Function to plot the memory usage for each model
+def plot_memory_usage(results):
+    """
+    This function plots the memory usage for each model.
+
+    Input:
+    results: Dictionary with the results of the models
+
+    Output:
+    None
+    """
+    models = list(results.keys())
+    memory_usage = [results[model]['Memory Usage'] for model in models]
+    plt.figure(figsize=(10, 6))
+    bars = plt.bar(models, memory_usage)
+    # Adding labels on top of each bar
+    for bar in bars:
+        yval = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width()/2, yval, round(yval, 2), ha='center', va='bottom')
+
+    plt.title('Memory Usage for each model')
+    plt.xlabel('Models')
+    plt.ylabel('Memory Usage (MB)')
+    # Saving figure in the folder figures as png file 
+    plt.tight_layout()
+    plt.savefig(f'figures/Memory_usage_results.png')
+    # Show the plot
+    plt.show()
+    return plt
+
+"""
 # 4. Running the models
 lin_model = linear_regression_model(X_train, X_test, y_train, y_test) # Linear Regression Model
 #gda_model_r = gda_model(X_train, X_test, y_train, y_test) # Gaussian Discriminant Analysis Model
@@ -275,14 +366,21 @@ for model_name in results.keys():
     
 
 # 6. Plotting the data in function of the features for linear regression model
-plot_results_features(lin_model, X_test, y_test, 'D') # Diameter
-plot_results_features(lin_model, X_test, y_test, 'L') # Length
-plot_results_features(lin_model, X_test, y_test, 'P') # Pressure
-plot_results_features(lin_model, X_test, y_test, 'G') # Mass flux
-plot_results_features(lin_model, X_test, y_test, 'X_chf') # Quality
-plot_results_features(lin_model, X_test, y_test, 'Dh_in') # Hydraulic diameter
-plot_results_features(lin_model, X_test, y_test, 'T_in') # In
+plot_results_features(lin_model, X_test, y_test, 'D') # Diameter m 
+plot_results_features(lin_model, X_test, y_test, 'L') # Length m 
+plot_results_features(lin_model, X_test, y_test, 'P') # Pressure kPa
+plot_results_features(lin_model, X_test, y_test, 'G') # Mass flux kg/m2s
+plot_results_features(lin_model, X_test, y_test, 'X_chf') # Quality 
+plot_results_features(lin_model, X_test, y_test, 'Dh_in') # Hydraulic diameter m
+plot_results_features(lin_model, X_test, y_test, 'T_in') # Input temperature C
 
+
+# Plotting the mean squared error, execution time and memory usage for each model
+plot_mse(results)
+plot_execution_time(results)
+plot_memory_usage(results)
 
 # Stop tracking memory usage
 tracemalloc.stop()
+
+"""

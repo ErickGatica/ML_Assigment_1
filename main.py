@@ -16,7 +16,7 @@ from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis as QDA
 
 
 # Importing the required functions from the src folder
-from src.chf_prediction import linear_regression_model, gda_model, naive_bayes_model, plot_results, plot_results_features, logistic_regression_model, ridge_regression_model
+from src.chf_prediction import linear_regression_model, gda_model, naive_bayes_model, plot_results, plot_results_features, logistic_regression_model, ridge_regression_model, plot_mse, plot_execution_time, plot_memory_usage  
 
 # Some global variables
 results = {} # Dictionary to store the results of the models    
@@ -40,12 +40,12 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 
 
 # 4. Running the models
-lin_model = linear_regression_model(X_train, X_test, y_train, y_test) # Linear Regression Model
-#gda_model_r = gda_model(X_train, X_test, y_train, y_test) # Gaussian Discriminant Analysis Model
-nb_model = naive_bayes_model(X_train, X_test, y_train, y_test) # Naive Bayes Model
-#log_reg_model = logistic_regression_model(X_train, X_test, y_train, y_test) # Logistic Regression Model  ----> This model is so slow, we have to increase number of iterations
-ridge_model_1 = ridge_regression_model(X_train, X_test, y_train, y_test, 0.1) # Ridge Regression Model with alpha = 0.1
-ridge_model_8 = ridge_regression_model(X_train, X_test, y_train, y_test, 0.8) # Ridge Regression Model with alpha = 0.8
+lin_model, results['Linear Regression'] = linear_regression_model(X_train, X_test, y_train, y_test) # Linear Regression Model
+#gda_model_r , results['Gaussian Discriminant Analysis'] = gda_model(X_train, X_test, y_train, y_test) # Gaussian Discriminant Analysis Model
+nb_model, results['Naive Bayes'] = naive_bayes_model(X_train, X_test, y_train, y_test) # Naive Bayes Model
+#log_reg_model , results['Logistic Regression'] = logistic_regression_model(X_train, X_test, y_train, y_test) # Logistic Regression Model  ----> This model is so slow, we have to increase number of iterations
+ridge_model_1 , results['Ridge Regression 0.1'] = ridge_regression_model(X_train, X_test, y_train, y_test, 0.1) # Ridge Regression Model with alpha = 0.1
+ridge_model_8, results['Ridge Regression 0.8'] = ridge_regression_model(X_train, X_test, y_train, y_test, 0.8) # Ridge Regression Model with alpha = 0.8
 
 
 # 5. Plotting the results for each model
@@ -56,14 +56,19 @@ for model_name in results.keys():
     
 
 # 6. Plotting the data in function of the features for linear regression model
-plot_results_features(lin_model, X_test, y_test, 'D') # Diameter
-plot_results_features(lin_model, X_test, y_test, 'L') # Length
-plot_results_features(lin_model, X_test, y_test, 'P') # Pressure
-plot_results_features(lin_model, X_test, y_test, 'G') # Mass flux
-plot_results_features(lin_model, X_test, y_test, 'X_chf') # Quality
-plot_results_features(lin_model, X_test, y_test, 'Dh_in') # Hydraulic diameter
-plot_results_features(lin_model, X_test, y_test, 'T_in') # In
+plot_results_features(lin_model, X_test, y_test, 'D') # Diameter m 
+plot_results_features(lin_model, X_test, y_test, 'L') # Length m 
+plot_results_features(lin_model, X_test, y_test, 'P') # Pressure kPa
+plot_results_features(lin_model, X_test, y_test, 'G') # Mass flux kg/m2s
+plot_results_features(lin_model, X_test, y_test, 'X_chf') # Quality 
+plot_results_features(lin_model, X_test, y_test, 'Dh_in') # Hydraulic diameter m
+plot_results_features(lin_model, X_test, y_test, 'T_in') # Input temperature C
 
+
+# Plotting the mean squared error, execution time and memory usage for each model
+plot_mse(results)
+plot_execution_time(results)
+plot_memory_usage(results)
 
 # Stop tracking memory usage
 tracemalloc.stop()
