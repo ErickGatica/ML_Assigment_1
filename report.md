@@ -61,6 +61,66 @@ Each of these models were evaluated on the dataset, and their performance compar
 
 ## Results
 
+The results to present summarized the behavior of the 4 models that were evaluated on this report.
+
+First, in the [Figure 1](#fig1), we can see the comparison of the mean squared error (MSE) for each model.
+
+<!-- Figure 1: Mean Squared Error for each model -->
+<p id="fig1">
+    <img src="figures/MSE_results.png" alt="Mean Squared Error for each model" width="600">
+    <br>
+    <strong>Figure 1:</strong> Mean Squared Error for each model.
+</p>
+
+The results indicated that the  model that optimize the MSE value is the Naive Bayes model. While the linear regression models have similar values for MSE.
+
+However, in the [Figure 2](#fig2) can be observed that the Naive Bayes model takes 74 times of execution time than the linear model. Nevertheless, if  time is not a limitation to process this data this will not be a constraint to use this model with this dataset. Otherwise, if the dataset is bigger could be problem for real-time applications. 
+
+<!-- Figure 2: Execution time for each model -->
+<p id="fig2">
+    <img src="figures/Execution_time_results.png" alt="Execution time for each model" width="600">
+    <br>
+    <strong>Figure 2:</strong> Mean Squared Error for each model.
+</p>
+
+Finally, if we analyze the memory usage for each model we can identify in [Figure 3](fig#3) that the linear regression model with no regularization is the more efficient, while the other ones has a similar performance about benchmarking. 
+
+<!-- Figure 3: Execution time for each model -->
+<p id="fig3">
+    <img src="figures/Memory_usage_results.png" alt="Memory usage for each model" width="600">
+    <br>
+    <strong>Figure 3:</strong> Memory usage for each model.
+</p>
+
+In addition to the comparison of the models, the next Figures show the results of the ideal regression for each model:
+
+<!-- Figure 4: Linear regresssion model -->
+<p id="fig4">
+    <img src="figures/Linear regression_results.png" alt="Linear regression model" width="600">
+    <br>
+    <strong>Figure 4:</strong> Linear regression model.
+</p>
+
+<!-- Figure 5: Naive Bayes model -->
+<p id="fig5">
+    <img src="figures/Naive Bayes_results.png" alt="Naive Bayes model" width="600">
+    <br>
+    <strong>Figure 5:</strong> Naive Bayes model.
+</p>
+
+<!-- Figure 6: Ridge Regression model 0.1 -->
+<p id="fig6">
+    <img src="figures/Ridge Regression 0.1_results.png" alt="Ridge regression model alpha = 0.1" width="600">
+    <br>
+    <strong>Figure 6:</strong> Ridge regression model alpha = 0.1.
+</p>
+
+<!-- Figure 7: Ridge Regression model 0.8 -->
+<p id="fig7">
+    <img src="figures/Ridge Regression 0.8_results.png" alt="Ridge regression model alpha = 0.8" width="600">
+    <br>
+    <strong>Figure 7:</strong> Ridge regression model alpha = 0.8.
+</p>
 
 
 
